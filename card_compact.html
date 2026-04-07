@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Статистическая карточка Ф-1.2 (Компактная)</title>
+    <style>
+        :root {
+            --bg-page: #f3f4f6;
+            --bg-card: #ffffff;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --border: #e5e7eb;
+            --primary: #2563eb;
+            --code-bg: #eff6ff;
+            --code-text: #1d4ed8;
+            --empty-val: #9ca3af;
+        }
+        body { 
+            font-family: system-ui, -apple-system, sans-serif; 
+            background: var(--bg-page); 
+            color: var(--text-main); 
+            padding: 15px; 
+            line-height: 1.4; 
+            font-size: 16px;
+        }
+        .container { max-width: 1100px; margin: 0 auto; }
+        
+        /* Layout */
+        .header { 
+            margin-bottom: 15px; 
+            border-bottom: 3px solid var(--primary); 
+            padding-bottom: 12px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: flex-end; 
+        }
+        .header h1 { font-size: 1.8rem; margin: 0; font-weight: 700; }
+        .header .meta { font-size: 1rem; color: var(--text-muted); font-weight: 500; margin-top: 4px; }
+        
+        .section { 
+            background: var(--bg-card); 
+            border-radius: 6px; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.08); 
+            margin-bottom: 12px; 
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        .section-header { 
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); 
+            padding: 10px 16px; 
+            border-bottom: 2px solid var(--border); 
+            font-weight: 700; 
+            color: #1e40af; 
+            display: flex; 
+            justify-content: space-between;
+            font-size: 1.1rem;
+        }
+        .section-body { padding: 14px; }
+        
+        .grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
+            gap: 14px; 
+        }
+        .full-width { grid-column: 1 / -1; }
+        
+        /* Data Fields */
+        .field { display: flex; flex-direction: column; gap: 3px; }
+        .label { 
+            font-size: 0.85rem; 
+            text-transform: uppercase; 
+            letter-spacing: 0.08em; 
+            color: var(--text-muted); 
+            font-weight: 700;
+        }
+        .value { 
+            font-size: 1.15rem; 
+            font-weight: 600;
+            line-height: 1.3;
+        }
+        .value.empty { color: var(--empty-val); font-style: italic; font-weight: 500; }
+        
+        /* Codes & Badges */
+        .code-badge { 
+            display: inline-block; 
+            background: var(--code-bg); 
+            color: var(--code-text); 
+            font-size: 0.9rem; 
+            padding: 3px 8px; 
+            border-radius: 4px; 
+            font-family: monospace; 
+            margin-left: 8px; 
+            border: 1px solid #bfdbfe;
+            font-weight: 600;
+        }
+        .raw-codes { 
+            font-family: monospace; 
+            background: #f3f4f6; 
+            padding: 4px 8px; 
+            border-radius: 4px; 
+            font-size: 1rem; 
+            color: #4b5563;
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+        
+        /* Section titles emphasis */
+        .section-header span:first-child {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .section-header span:first-child::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: var(--primary);
+            border-radius: 50%;
+        }
+        
+        /* Print */
+        @media print { 
+            body { background: white; padding: 10px; font-size: 14px; } 
+            .section { box-shadow: none; border: 2px solid #000; margin-bottom: 10px; }
+            .section-header { background: #f0f0f0; border-bottom: 2px solid #000; }
+            .code-badge { border: 1px solid #000; }
+        }
+        
+        /* Button */
+        .print-btn {
+            padding: 12px 24px; 
+            background: var(--primary); 
+            color: white; 
+            border: none; 
+            border-radius: 6px; 
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        .print-btn:hover { background: #1d4ed8; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div>
+                <h1>Статистическая карточка Ф-1.2</h1>
+                <div class="meta">На подозреваемого (обвиняемого)</div>
+            </div>
+            <div style="text-align: right;">
+                <div class="label">Тип учета</div>
+                <div class="value" style="color: var(--primary);">Учесть (1)</div>
+            </div>
+        </div>
+
+        <!-- Section 1: Registration -->
+        <div class="section">
+            <div class="section-header">
+                <span>Раздел 1. Учетно-регистрационные данные</span>
+                <span class="label" style="font-size: 0.8rem;">Заполняется работником ГИЦ/ИЦ</span>
+            </div>
+            <div class="section-body">
+                <div class="grid">
+                    <div class="field">
+                        <span class="label">Номер уголовного дела (материала)</span>
+                        <span class="value">1.25.0200.0000.000001 <span class="code-badge">дело (1)</span></span>
+                    </div>
+                    <div class="field">
+                        <span class="label">Условное наименование части</span>
+                        <span class="value">2939000</span>
+                    </div>
+                    <div class="field">
+                        <span class="label">Порядковый номер лица</span>
+                        <span class="value">№ лица 001</span>
+                    </div>
+                    <div class="field">
+                        <span class="label">Дата направления карточки прокурору</span>
+                        <span class="value">12.03.2025</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: Personal Data -->
+        <div class="section">
+            <div class="section-header">
+                <span>Раздел 2. Личные данные</span>
+                <span class="label" style="font-size: 0.8rem;">Заполняется следователем/дознавателем</span>
+            </div>
+            <div class="section-body">
+                <div class="grid">
+                    <div class="field full-width">
+                        <span class="label">ФИО</span>
+                        <span class="value" style="font-size: 1.3rem; color: var(--primary);">Маликов Костя Андреевич</span>
+                    </div>
+                    
+                    <div class="field">
+                        <span class="label">Пол</span>
+                        <span class="value">Мужской <span class="code-badge">1</span></span>
+                    </div>
+                    <div class="field">
+                        <span class="label">Дата рождения</span>
+                        <span class="value">20.11.1998</span>
+                    </div>
+                    <div class="field">
+                        <span class="label">Возраст на момент преступления</span>
+                        <span class="value empty">Не указан код возраста (25-29 лет?)</span>
+                    </div>
+
+                    <div class="field">
+                        <span class="label">Гражданство</span>
+                        <span class="value">Иностранный гражданин <span class="code-badge">2</span></span>
+                    </div>
+                    <div class="field">
+                        <span class="label">Национальность</span>
+                        <span class="value">Араб</span>
+                    </div>
+
+                    <div class="field">
+                        <span class="label">Место рождения (Населенный пункт)</span>
+                        <span class="value">Китай, г. Пекин</span>
+                    </div>
+                    <div class="field">
+                        <span class="label">Место жительства</span>
+                        <span class="value">Япония, г. Токио</span>
+                    </div>
+
+                    <div class="field">
+                        <span class="label">Семейное положение</span>
+                        <span class="value empty">Не заполнено (1-холост/2-женат)</span>
+                    </div>
+                    <div class="field">
+                        <span class="label">Кем воспитывался</span>
+                        <span class="value empty">Не заполнено (1-родители/2-мать...)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: Service & Education -->
+        <div class="section">
+            <div class="section-header">
+                <span>Раздел 3. Служба, образование и соц. положение</span>
+            </div>
+            <div class="section-body">
+                <div class="grid">
+                    <div class="field">
+                        <span class="label">Должность (военнослужащий)</span>
+                        <span class="value">Водитель</span>
+                    </div>
+                    <div class="field">
+                        <span class="label">Звание</span>
+                        <span class="value">Летенат <span style="color:red; font-size:0.9rem;">(опечатка в исх. док.)</span></span>
+                    </div>
+                    <div class="field">
+                        <span class="label">Личный номер</span>
+                        <span class="value">АЗ-34455</span>
+                    </div>
+                    <div class="field">
+                        <span class="label">ВК / Учебное заведение</span>
+                        <span class="value">3453ПОВСК</span>
+                    </div>
+                    <div class="field">
+                        <span class="label">Дата призыва / окончания</span>
+                        <span class="value">21.12.2020</span>
+                    </div>
+                    <div class="field">
+                        <span class="label">Образование</span>
+                        <span class="value empty">Не заполнено (коды 1-7)</span>
+                    </div>
+                </div>
+
+                <hr style="border: 0; border-top: 2px solid var(--border); margin: 16px 0;">
+
+                <div class="grid">
+                    <div class="field">
+                        <span class="label">Социальное положение</span>
+                        <span class="value">Военнослужащий - иностранец <span class="code-badge">05</span></span>
+                    </div>
+                    <div class="field full-width">
+                        <span class="label">Должностное положение (Коды из документа)</span>
+                        <span class="value raw-codes">10 01 02 04</span>
+                        <div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 6px; line-height: 1.5;">
+                            <strong>Расшифровка кодов:</strong><br>
+                            10 - Зам. командира части (?) &nbsp;|&nbsp; 
+                            01 - Командир части (?) &nbsp;|&nbsp; 
+                            02 - Начальник службы (?) &nbsp;|&nbsp; 
+                            04 - Иной гражданский персонал / Водитель (?)
+                            <br><em style="font-size: 0.85rem;">*Примечание: В исходном файле указан код "44" в тексте, но в поле кодов "10 01 02 04". Визуализированы сырые данные.</em>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 4: Crimes -->
+        <div class="section">
+            <div class="section-header">
+                <span>Раздел 4. Сведения о преступлении</span>
+            </div>
+            <div class="section-body">
+                <div class="grid">
+                    <div class="field">
+                        <span class="label">Квалификация (Статья УК)</span>
+                        <span class="value" style="color: #dc2626; font-size: 1.2rem;">012</span>
+                    </div>
+                    <div class="field">
+                        <span class="label">Роль в соучастии</span>
+                        <span class="value">Исполнитель <span class="code-badge">4</span></span>
+                    </div>
+                    <div class="field">
+                        <span class="label">Состояние при совершении</span>
+                        <span class="value empty">Не заполнено (алкогольное/наркотическое...)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 5: Procedure Dates -->
+        <div class="section">
+            <div class="section-header">
+                <span>Раздел 5. Процессуальные сроки и меры</span>
+            </div>
+            <div class="section-body">
+                <div class="grid">
+                    <div class="field">
+                        <span class="label">Дата возбуждения дела</span>
+                        <span class="value">12.04.2026 <span class="code-badge">14</span></span>
+                    </div>
+                    <div class="field">
+                        <span class="label">Дата задержания (ст. 90-91 УПК)</span>
+                        <span class="value">20.12.2026 <span class="code-badge">11</span></span>
+                    </div>
+                    <div class="field">
+                        <span class="label">Дата предъявления обвинения</span>
+                        <span class="value empty">—</span>
+                    </div>
+                    <div class="field">
+                        <span class="label">Мера пресечения</span>
+                        <span class="value empty">Не указана (код 10-16)</span>
+                    </div>
+                    <div class="field">
+                        <span class="label">Дата объявления в розыск</span>
+                        <span class="value">10.12.2026 <span class="code-badge">13</span></span>
+                    </div>
+                    <div class="field">
+                        <span class="label">Арест имущества (сумма)</span>
+                        <span class="value empty">Не наложен</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: right; margin-top: 16px;">
+            <button onclick="window.print()" class="print-btn">🖨️ Печать / PDF</button>
+        </div>
+    </div>
+</body>
+</html>
